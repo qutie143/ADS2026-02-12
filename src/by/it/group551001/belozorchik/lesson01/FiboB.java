@@ -1,7 +1,6 @@
-package by.it.a_khmelev.lesson01;
+package by.it.group551001.belozorchik.lesson01;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 
 /*
  * Вам необходимо выполнить способ вычисления чисел Фибоначчи со вспомогательным массивом
@@ -25,7 +24,19 @@ public class FiboB {
 
     BigInteger fastB(Integer n) {
         //здесь нужно реализовать вариант с временем O(n) и памятью O(n)
-        return BigInteger.valueOf(-1L);
+        if (n == 0)
+            return BigInteger.ZERO;
+        if (n == 1)
+            return BigInteger.ONE;
+
+        BigInteger[] arr = new BigInteger[n+1];
+        arr[0] = BigInteger.ZERO;
+        arr[1] = BigInteger.ONE;
+
+        for (int i = 2; i <= n; i++) {
+            arr[i] = arr[i - 1].add(arr[i - 2]);
+        }
+        return arr[n];
     }
 
 }
