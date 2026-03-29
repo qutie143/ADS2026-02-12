@@ -47,9 +47,42 @@ public class C_GreedyKnapsack {
         //тут реализуйте алгоритм сбора рюкзака
         //будет особенно хорошо, если с собственной сортировкой
         //кроме того, можете описать свой компаратор в классе Item
-
+        // сортировка пузырьком
+        // сортируем по убыванию удельной стоимости (cost/weight)
+        for (int i = 0; i < items.length - 1; i++) {
+            for (int j = 0; j < items.length - i - 1; j++) {
+                // если текущий предмет дешевле следующего по удельной цене
+                if (items[j].compareTo(items[j + 1]) > 0) {
+                    // то меняем их местами
+                    Item temp = items[j];
+                    items[j] = items[j + 1];
+                    items[j + 1] = temp;
+                }
+            }
+        }
         //ваше решение.
+        int currentWeight = 0;
 
+        // сам аглоритм сбора рюкзака
+        for (Item item : items) {
+            if (currentWeight < W) {
+                // скока места осталось в рюкзаке
+                int remainingSpace = W - currentWeight;
+
+                if (item.weight <= remainingSpace) {
+                    // берем предмет целиком
+                    result += item.cost;
+                    currentWeight += item.weight;
+                } else {
+                    // если не влезает целиком — режем
+                    // возьмем ту часть веса, которая заполнит остаток рюкзака
+                    double unitPrice = (double) item.cost / item.weight;
+                    result += unitPrice * remainingSpace;
+                    currentWeight = W; // Рюкзак полон
+                    break;
+                }
+            }
+        }
 
         System.out.printf("Удалось собрать рюкзак на сумму %f\n", result);
         return result;
@@ -75,7 +108,14 @@ public class C_GreedyKnapsack {
         @Override
         public int compareTo(Item o) {
             //тут может быть ваш компаратор
+// вычисляем удельную стоимость для обоих предметов
+            double v1 = (double) this.cost / this.weight;
+            double v2 = (double) o.cost / o.weight;
 
+            // нужно отсортировать по убыванию
+            // поэтому если v2 > v1, возвращаем положительное число
+            if (v2 > v1) return 1;
+            if (v2 < v1) return -1;
 
             return 0;
         }
