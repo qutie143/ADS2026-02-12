@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class FiboB {
 
-    private final long startTime = System.currentTimeMillis();
+    private long startTime = System.currentTimeMillis();
 
     public static void main(String[] args) {
         //вычисление чисел простым быстрым методом

@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @SuppressWarnings("all")
@@ -38,8 +37,8 @@ public class Lesson01Test {
     @Test(timeout = 2000)
     public void checkC_faster() throws Exception {
         FiboC fibo = new FiboC();
-        assertEquals("fasterC failed 1", 1L, fibo.fasterC(10, 2));
-        assertEquals("fasterC failed 2", 1L, fibo.fasterC(1, 2));
-        assertEquals("fasterC failed 3", 34L, fibo.fasterC(999999999, 321));
+        assertTrue("fasterC failed 1", fibo.fasterC(10, 2) == 1L);
+        assertTrue("fasterC failed 2", fibo.fasterC(1, 2) == 1L);
+        assertTrue("fasterC failed 3", fibo.fasterC(999999999, 321) == 34L);
     }
 }
