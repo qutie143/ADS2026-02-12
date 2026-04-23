@@ -47,10 +47,52 @@ public class B_MergeSort {
 
         // тут ваше решение (реализуйте сортировку слиянием)
         // https://ru.wikipedia.org/wiki/Сортировка_слиянием
+        // подготовка временного массива для слияния
+        int[] temp = new int[n];
+        System.arraycopy(a, 0, temp, 0, n);
+        //откуда, с какого индекса, куда, индекс, сколько
 
+        my_merge_sort(temp, a, 0, n - 1);
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return a;
+    }
+
+    private int[] my_merge_sort(int[] from_arr, int[] to_arr, int left, int right) {
+        //если в подмассиве 1 эл
+        if (left == right) {
+            to_arr[left] = from_arr[left];
+            return to_arr;
+        }
+        //разделяй и сортируй
+        int middle = left + (right - left) / 2;
+        // сортируем половины
+        // меняем местами массивы, чтобы результат слияния шел в правильный массив
+        my_merge_sort(to_arr, from_arr, left, middle);
+        my_merge_sort(to_arr, from_arr,middle + 1, right);
+
+        //слияние двух отсортированных массивов
+        int i = left;       // указ на начало левой части
+        int j = middle + 1; // правой части
+        int k = left;       // для записи в целевой массив
+
+        while (i <= middle && j <= right) {
+            if (from_arr[i] <= from_arr[j]) {
+                to_arr[k++] = from_arr[i++];
+            } else {
+                to_arr[k++] = from_arr[j++];
+            }
+        }
+
+        // дописываем остатки, если они есть
+        while (i <= middle) {
+            to_arr[k++] = from_arr[i++];
+        }
+        while (j <= right) {
+            to_arr[k++] = from_arr[j++];
+        }
+
+        return to_arr;
     }
 
 }
