@@ -60,7 +60,6 @@ public class C_GreedyKnapsack {
                 }
             }
         }
-
         //ваше решение.
         int currWeight = 0;
 
